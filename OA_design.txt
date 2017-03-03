@@ -54,10 +54,14 @@ PID varchar（50） 	证件号
 2.用户组group
 id primary autoincrement
 groupname varchar（50）组名
-userid int	用户id
-userrole bool false-不是组长，true-是组长 
 
-3.资产asset
+3.用户和组关联表userrelatedgroup
+id primary autoincrement
+groupid int 组id
+userid int	用户id
+userrole int 0-不是组长，1-是组长 
+
+4.资产asset
 id int primary autoincrement
 name varchar(50) 资产名称
 PID varchar(50)  资产编号
@@ -69,14 +73,14 @@ buyingtime datetime  购入时间
 scraptime datetime   报废时间
 price int	价格
 
-4.通告noticement
+5.通告noticement
 id int primary autoincrement
 title varchar(50) 标题
 content text	内容
 releasetime datetime	发布日期
 
 
-5.文档document
+6.文档document
 id int primary autoincrement
 name varchar(50) 文档名
 userid int 用户id
@@ -85,19 +89,19 @@ uploadtime datatime 上传时间
 savepath varchar(100)	储存路径
 
 
-6.请假离职request
+7.请假离职request
 id int primary autoincrement
 requesterid int	请求者id
 requestername varchar(50)	请求者名称
 approverid int	审批者id
-approvername varchar(50) 审批者明晨
+approvername varchar(50) 审批者姓名
 requesttype int 0-请假，1-离职
 approvaltype int 0-驳回,1-允许
 requesttime datetime 请求时间
 approvaltime datetime 审批时间
 
 
-7.考勤signin
+8.考勤signin
 id int primary autoincrement
 userid int 用户id
 username varchar(50) 用户名称
@@ -105,7 +109,7 @@ type int 0-上班，1-下班
 signintime datetime	签到时间
 
 
-8.工作计划workplan
+9.工作计划workplan
 id int primary autoincrement
 title varchar(50) 标题
 content text 内容
@@ -116,17 +120,25 @@ username varchar(50) 发布计划者名称
 groupid int 发布计划者组id
 groupname varchar(50) 发布计划者组名称
 
-9.工作日志worklog
+10.工作日志worklog
 id int primary autoincrement
 content text 内容
 date date 日期
 starttime datetime 开始时间
 endtime datetime 结束时间
 
+11.管理员用户表 admin
+id int primary autoincrement
+adminname varchar(50)
+password varchar(50)
 
+工作计划：
+1.创建数据库
+2.先把model写好
+3.后台的登录界面
 
-
-
+3.后台
+4.前台
 
 
 

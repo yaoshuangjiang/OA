@@ -79,6 +79,18 @@ class User extends CI_Model
     }
 
     /**
+     * 获取总个数
+     *
+     * @return mixed
+     */
+    public function get_users_count()
+    {
+        $sql = "SELECT count(*) as count FROM $this->table";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    /**
      * 获取指定记录
      *
      * @param $username
@@ -130,7 +142,7 @@ class User extends CI_Model
      * @param $id
      * @return mixed
      */
-    public function delete_user($id)
+    public function del_user($id)
     {
         $this->db->where('id', $id);
         return $this->db->delete($this->table);

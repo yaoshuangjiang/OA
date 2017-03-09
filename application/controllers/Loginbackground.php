@@ -21,6 +21,7 @@ class  Loginbackground extends CI_Controller
      */
     public function login()
     {
+        //$this->load->view('test');
         $this->load->view('background/loginbackground');
     }
 
@@ -29,22 +30,25 @@ class  Loginbackground extends CI_Controller
      */
     public function check()
     {
+        /*if (!isset($_POST['username']) || $_POST['password'])
+            return;*/
+
         $user = $_POST['username'];
         $pwd = $_POST['password'];
 
         $row = $this->Admin->get_admin_adminname($user);
-        if (count($row)>0) {
+        if (count($row) > 0) {
             if ($row[0]['adminname'] == $user) {
                 if ($row[0]['password'] == $pwd) {
-
+                    $this->load->view('background/main');
                 }
             } else {
-                $re['response'] ="密码不正确！" ;
-                $this->load->view('background/loginbackground',$re);
+                $re['response'] = "密码不正确！";
+                $this->load->view('background/loginbackground', $re);
             }
         } else {
-            $re['response'] ="账号不正确！" ;
-            $this->load->view('background/loginbackground',$re);
+            $re['response'] = "账号不正确！";
+            $this->load->view('background/loginbackground', $re);
         }
     }
 }

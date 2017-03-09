@@ -124,7 +124,7 @@
                 <td><label id="tipuser"></label></td>
             </tr>
             <tr>
-                <td><input type="text" placeholder="密码:" name="password" id="password"/></td>
+                <td><input type="password" placeholder="密码:" name="password" id="password"/></td>
                 <td><label id="tippwd"></label></td>
             </tr>
             <tr>
@@ -134,7 +134,7 @@
             </tr>
         </form>
         <tr>
-            <td><label id="re"><?php try{echo $response;}catch(Exception $e){} ?></label></td>
+            <td><label id="re"><?php if(isset($response)){echo $response;} ?></label></td>
         </tr>
     </table>
 </div>

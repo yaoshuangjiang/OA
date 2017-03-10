@@ -171,7 +171,7 @@ class User extends CI_Model
         return $this->db->empty_table($this->table);
     }
 
-    public function checkuser($value)
+    public function check_user($value)
     {
         $sql = "SELECT * FROM $this->table WHERE username=$value->username or usernumber=$value->usernumber OR PID=$value->PID";
         $query = $this->db->query($sql);

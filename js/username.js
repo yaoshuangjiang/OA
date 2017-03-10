@@ -1,14 +1,14 @@
 /**
  * Created by yao on 2017/3/8.
  */
-var baseurl = "http://localhost:9096/OA/";
+var baseUrl = "http://localhost:9096/OA/";
 
 function test() {
     alert("ok");
-    return false;
 }
 
-function check1() {
+//检查添加用户的数据和合法性
+function checkUser() {
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
     var mobile = document.getElementById('mobile').value;
@@ -69,14 +69,15 @@ function check1() {
     return checked;
 }
 
-function insert_user() {
-    if (!check1()) {
+//添加用户
+function insertUser() {
+    if (!checkUser()) {
         return;
     }
 
     $.ajax({
         type: "POST",
-        url: baseurl + "Showcontent/insert_user?" + Math.random().toString(),
+        url: baseUrl + "Showcontent/insert_user?" + Math.random().toString(),
         async: true,
         data: $('#form_add').serialize(),// 你的formid
         error: function () {
@@ -88,10 +89,11 @@ function insert_user() {
     })
 }
 
+//点击左侧导航，右面显示内容
 function showRightContent(type) {
     $.ajax({
         type: "GET",
-        url: baseurl + "Showcontent/sendcontent?type=" + type + "&" + Math.random().toString(),
+        url: baseUrl + "Showcontent/sendcontent?type=" + type + "&" + Math.random().toString(),
         async: true,
         error: function () {
             alert("Connection error");
@@ -102,7 +104,8 @@ function showRightContent(type) {
     })
 }
 
-function selectuser(obj) {
+//选中用户列表中的一行记录
+function selectedUser(obj) {
     if (obj.style.backgroundColor == 'white') {
         obj.style.backgroundColor = '#858DA8';
     } else {
@@ -110,11 +113,12 @@ function selectuser(obj) {
     }
 }
 
-function deluser(id) {
+//删除指定用户
+function deleteUser(id) {
     if (confirm("请确定是否删除该用户！")) {
         $.ajax({
             type: "GET",
-            url: baseurl + "Showcontent/del_user?type=1&id=" + id + "&" + Math.random().toString(),
+            url: baseUrl + "Showcontent/del_user?type=1&id=" + id + "&" + Math.random().toString(),
             async: true,
             error: function () {
                 alert("Connection error");
@@ -126,38 +130,41 @@ function deluser(id) {
     }
 }
 
-function delsselectuser() {
-
-    var id = "";
-    var table = document.getElementById('table1');
-    for (i = 0; i < table.rows.length; i++) {
-        if (table.rows(i).style.backgroundColor == 'white') {
-            if (id == "") {
-                id = table.rows(i).id;
-            } else {
-                id = id + "," + table.rows(i).id;
+//删除选中用户
+function deleteSelectedUser() {
+    if (confirm("请确定是否删除选中用户！")) {
+        var id = "";
+        var table = document.getElementById('user_tabel');
+        for (i = 0; i < table.rows.length; i++) {
+            if (table.rows(i).style.backgroundColor == 'white') {
+                if (id == "") {
+                    id = table.rows(i).id;
+                } else {
+                    id = id + "," + table.rows(i).id;
+                }
             }
         }
-    }
 
-    $.ajax({
-        type: "GET",
-        url: baseurl + "Showcontent/del_user?type=1&id=" + id + "&" + Math.random().toString(),
-        async: true,
-        error: function () {
-            alert("Connection error");
-        },
-        success: function (data) {
-            $("#content").html(data); //data即为后台返回的数据
-        }
-    })
+        $.ajax({
+            type: "GET",
+            url: baseUrl + "Showcontent/del_user?type=1&id=" + id + "&" + Math.random().toString(),
+            async: true,
+            error: function () {
+                alert("Connection error");
+            },
+            success: function (data) {
+                $("#content").html(data); //data即为后台返回的数据
+            }
+        })
+    }
 }
 
-function bt_delalluser(url) {
+//删除所有用户
+function deleteAllUser() {
     if (confirm("请确定是否删除全部用户！")) {
         $.ajax({
             type: "GET",
-            url: baseurl + "Showcontent/del_user?type=0&" + Math.random().toString(),
+            url: baseUrl + "Showcontent/del_user?type=0&" + Math.random().toString(),
             async: true,
             error: function () {
                 alert("Connection error");
@@ -169,18 +176,21 @@ function bt_delalluser(url) {
     }
 }
 
-function bt_adduser() {
+//显示添加用户面板
+function showAddUserPanel() {
     document.getElementById('user_right').style.display = "block";
 }
 
-function addusercancel() {
+//取消按钮，隐藏添加修改用户面板
+function btnCancel() {
     document.getElementById('user_right').style.display = "none"
 }
 
-function showmodifyuser(id) {
+//显示修改用户面板
+function showModifyUserPanel(id) {
     $.ajax({
         type: "GET",
-        url: baseurl + "Showcontent/get_user?id=" + id + "&" + Math.random().toString(),
+        url: baseUrl + "Showcontent/get_user?id=" + id + "&" + Math.random().toString(),
         async: true,
         error: function () {
             alert("Connection error");
@@ -191,19 +201,20 @@ function showmodifyuser(id) {
     })
 }
 
-function modify_user(id) {
-    if (!check1()) {
+//修改用户信息
+function modifyUser(id) {
+    if (!checkUser()) {
         return;
     }
 
-    var post = $('#form_add').serialize();
-    post += "&id=" + id;
+    var postPra = $('#form_add').serialize();
+    postPra += "&id=" + id;
 
     $.ajax({
         type: "POST",
-        url: baseurl + "Showcontent/modify_user?" + Math.random().toString(),
+        url: baseUrl + "Showcontent/modify_user?" + Math.random().toString(),
         async: true,
-        data: post,// 你的formid
+        data: postPra,//post参数
         error: function () {
             alert("Connection error");
         },

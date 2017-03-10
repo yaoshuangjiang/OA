@@ -81,6 +81,7 @@
     </style>
     <script type="text/javascript" src="<?php echo base_url() ?>js/jquery-1.8.0.js"></script>
     <script type="text/javascript" src="<?php echo base_url() ?>js/username.js"></script>
+    <script type="text/javascript" src="<?php echo base_url() ?>js/asset.js"></script>
     <script type="text/javascript">
 
         function showContent(obj, type) {

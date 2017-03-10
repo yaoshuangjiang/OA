@@ -29,10 +29,10 @@ class AssetValue
         return array(
             'name' => $this->name,
             'PID' => $this->PID,
-            'userid' => $this->userid,
+            //'userid' => $this->userid,
             'username' => $this->username,
-            'groupid' => $this->groupid,
-            'groupname' => $this->groupname,
+            // 'groupid' => $this->groupid,
+            // 'groupname' => $this->groupname,
             'buyingtime' => $this->buyingtime,
             'scraptime' => $this->scraptime,
             'price' => $this->price,
@@ -95,6 +95,30 @@ class Asset extends CI_Model
     }
 
     /**
+     * 获取一条记录
+     *
+     * @return mixed
+     */
+    public function get_asset_id($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get($this->table);
+        return $query->result_array();
+    }
+
+    /**
+     * 获取总个数
+     *
+     * @return mixed
+     */
+    public function get_assets_count()
+    {
+        $sql = "SELECT count(*) as count FROM $this->table";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
+    /**
      * 插入一条记录
      *
      * @param $value
@@ -138,6 +162,24 @@ class Asset extends CI_Model
         $this->db->where('id', $id);
         return $this->db->delete($this->table);
     }
+
+    /**
+     *删除所有记录
+     *
+     * @return mixed
+     */
+    public function delete_allAsset()
+    {
+        return $this->db->empty_table($this->table);
+    }
+
+    public function check_asset($value)
+    {
+        $sql = "SELECT * FROM $this->table WHERE PID=$value->PID";
+        $query = $this->db->query($sql);
+        return $query->result_array();
+    }
+
 }
 
 ?>

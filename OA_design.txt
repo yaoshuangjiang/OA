@@ -65,10 +65,10 @@ userrole int 0-不是组长，1-是组长
 id int primary autoincrement
 name varchar(50) 资产名称
 PID varchar(50)  资产编号
-userid int	用户id
+userid int	用户id --暂时不用
 username varchar(50) 用户名
-groupid int	组id
-groupname varchar(50)	组名
+groupid int	组id  --暂时不用
+groupname varchar(50)	组名 --暂时不用
 buyingtime datetime  购入时间
 scraptime datetime   报废时间
 price int	价格
@@ -142,4 +142,8 @@ password varchar(50)
 
 
 
-
+        <?php
+if (isset($msg) && $msg == "ok") {
+ echo "display: none;";
+}
+?>

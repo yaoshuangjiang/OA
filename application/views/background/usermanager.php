@@ -15,6 +15,16 @@
         #list1 {
         }
 
+        #user_left {
+            margin-top: 10px;
+            padding: 20px;
+            background-color: #858DA8;
+            width: 500px;
+            border-radius: 5px;
+            float: left;
+            text-align: center;
+        }
+
         #user_left th {
             width: 100px;
             height: 30px;
@@ -31,6 +41,22 @@
             width: 100px;
             height: 30px;
             margin: 0px;
+        }
+
+        #user_right {
+            margin-top: 10px;
+            margin-left: 20px;
+            padding: 20px;
+            background-color: #858DA8;
+            width: 500px;
+            height: 210px;
+            border-radius: 5px;
+            float: left;
+        <?php
+if (isset($msg) && $msg == "ok") {
+ echo "display: none;";
+}
+?>
         }
 
         #user_right tr {
@@ -61,69 +87,34 @@
             width: 190px;
         }
 
-        #user_title {
-            width: 100%;
-            height: 30px;
-            background-color: #858DA8;
-            border-radius: 5px;
-        }
-
-        #user_left {
-            margin-top: 10px;
-            padding: 20px;
-            background-color: #858DA8;
-            width: 500px;
-            border-radius: 5px;
-            float: left;
-            text-align: center;
-        }
-
-        #user_right {
-            margin-top: 10px;
-            margin-left: 20px;
-            padding: 20px;
-            background-color: #858DA8;
-            width: 500px;
-            height: 210px;
-            border-radius: 5px;
-            float: left;
-        <?php
-if (isset($msg) && $msg == "ok") {
- echo "display: none;";
-}
-?>
-        }
-
     </style>
 </head>
 <body>
 
 <div id="list1">
-    <div id="user_title">
-        <button class="btn" id="bt_add_user" onclick="bt_adduser()">添加用户</button>
-        <button class="btn" id="bt_delete_user"
-                onclick='bt_delalluser()'>删除全部用户
-        </button>
+    <div class="contentTitle">
+        <button onclick="showAddUserPanel()">添加用户</button>
+        <button onclick='deleteAllUser()'>删除全部用户</button>
     </div>
     <div id="user_left">
-        <table id="table1" class="table1" border="1">
+        <table id="user_tabel" border="1">
             <tr>
                 <th>用户名</th>
                 <th>电话</th>
                 <th>员工号</th>
                 <th>证件号</th>
                 <th>
-                    <button class='btn' onclick="delsselectuser()">删除选中</button>
+                    <button onclick="deleteSelectedUser()">删除选中</button>
                 </th>
             </tr>
             <?php
             foreach ($user as $row) {
-                echo "<tr id=" . $row['id'] . " onclick='selectuser(this)'>";
+                echo "<tr id=" . $row['id'] . " onclick='selectedUser(this)'>";
                 echo "<td>" . $row['username'] . "</td>";
                 echo " <td>" . $row['mobile'] . "</td>";
                 echo "<td>" . $row['usernumber'] . "</td>";
                 echo "<td>" . $row['PID'] . "</td>";
-                echo "<td><button class='btn'" . " onclick='deluser(" . $row['id'] . ")'>删</button><button class='btn'" . " onclick='showmodifyuser(" . $row['id'] . ")'>修</button></td>";
+                echo "<td><button" . " onclick='deleteUser(" . $row['id'] . ")'>删</button><button class='btn'" . " onclick='showModifyUserPanel(" . $row['id'] . ")'>修</button></td>";
                 echo "</tr>";
             }
             echo "<tr><td>总个数：" . $count . "</td></tr>"
@@ -133,7 +124,7 @@ if (isset($msg) && $msg == "ok") {
     <div id="user_right">
         <div>
             <form id="form_add">
-                <table class="table2" border="1">
+                <table border="1">
                     <tr>
                         <td class="td1">用户名:</td>
                         <td class="td2"><input type="text" id="username" name="username"
@@ -174,18 +165,11 @@ if (isset($msg) && $msg == "ok") {
                 </table>
             </form>
         </div>
-        <div id="modify_user">
-
-        </div>
         <div style="width: 300px;height: 30px;">
-            <button class="btn"
-                    onclick='<?php if (isset($curuser[0]["username"])) echo "modify_user( " . $curuser[0]['id'] . ")"; else echo "insert_user()"; ?>'>
+            <button onclick='<?php if (isset($curuser[0]["username"])) echo "modifyUser( " . $curuser[0]['id'] . ")"; else echo "insertUser()"; ?>'>
                 确定
             </button>
-            <button class="btn"
-                    onclick='addusercancel()'>
-                取消
-            </button>
+            <button onclick='btnCancel()'> 取消</button>
         </div>
     </div>
 </div>

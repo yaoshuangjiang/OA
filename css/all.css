@@ -7,7 +7,7 @@ body {
     background-color: #FFFFFF;
 }
 
-.btn {
+button {
     height: 20px;
     display: block;
     color: #fff;
@@ -17,4 +17,11 @@ body {
     margin: 5px;
     float: left;
     cursor: pointer;
+}
+
+.contentTitle {
+    width: 100%;
+    height: 30px;
+    background-color: #858DA8;
+    border-radius: 5px;
 }

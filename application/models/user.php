@@ -104,6 +104,19 @@ class User extends CI_Model
     }
 
     /**
+     * 获取指定记录
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function get_user_id($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get($this->table);
+        return $query->result_array();
+    }
+
+    /**
      * 插入一条记录
      *
      * @param $value
@@ -146,6 +159,23 @@ class User extends CI_Model
     {
         $this->db->where('id', $id);
         return $this->db->delete($this->table);
+    }
+
+    /**
+     *删除所有记录
+     *
+     * @return mixed
+     */
+    public function del_alluser()
+    {
+        return $this->db->empty_table($this->table);
+    }
+
+    public function checkuser($value)
+    {
+        $sql = "SELECT * FROM $this->table WHERE username=$value->username or usernumber=$value->usernumber OR PID=$value->PID";
+        $query = $this->db->query($sql);
+        return $query->result_array();
     }
 }
 

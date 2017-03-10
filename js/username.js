@@ -1,6 +1,7 @@
 /**
  * Created by yao on 2017/3/8.
  */
+var baseurl = "http://localhost:9096/OA/";
 
 function test() {
     alert("ok");
@@ -68,14 +69,14 @@ function check1() {
     return checked;
 }
 
-function insert_user(url) {
+function insert_user() {
     if (!check1()) {
         return;
     }
 
     $.ajax({
         type: "POST",
-        url: url,
+        url: baseurl + "Showcontent/insert_user?" + Math.random().toString(),
         async: true,
         data: $('#form_add').serialize(),// 你的formid
         error: function () {
@@ -87,10 +88,10 @@ function insert_user(url) {
     })
 }
 
-function showRightContent(url) {
+function showRightContent(type) {
     $.ajax({
         type: "GET",
-        url: url,
+        url: baseurl + "Showcontent/sendcontent?type=" + type + "&" + Math.random().toString(),
         async: true,
         error: function () {
             alert("Connection error");
@@ -102,26 +103,27 @@ function showRightContent(url) {
 }
 
 function selectuser(obj) {
-    if (obj.style.backgroundColor == 'blue') {
-        obj.style.backgroundColor = 'white';
+    if (obj.style.backgroundColor == 'white') {
+        obj.style.backgroundColor = '#858DA8';
     } else {
-        obj.style.backgroundColor = 'blue';
+        obj.style.backgroundColor = 'white';
     }
 }
 
 function deluser(id) {
-    $.ajax({
-        type: "GET",
-        //url: url+"?id="+id+"&"+Math.random().toString(),
-        url: "http://localhost:9096/OA/Showcontent/del_user?id=" + id + "&" + Math.random().toString(),
-        async: true,
-        error: function () {
-            alert("Connection error");
-        },
-        success: function (data) {
-            $("#content").html(data); //data即为后台返回的数据
-        }
-    })
+    if (confirm("请确定是否删除该用户！")) {
+        $.ajax({
+            type: "GET",
+            url: baseurl + "Showcontent/del_user?type=1&id=" + id + "&" + Math.random().toString(),
+            async: true,
+            error: function () {
+                alert("Connection error");
+            },
+            success: function (data) {
+                $("#content").html(data); //data即为后台返回的数据
+            }
+        })
+    }
 }
 
 function delsselectuser() {
@@ -129,7 +131,7 @@ function delsselectuser() {
     var id = "";
     var table = document.getElementById('table1');
     for (i = 0; i < table.rows.length; i++) {
-        if (table.rows(i).style.backgroundColor == 'blue') {
+        if (table.rows(i).style.backgroundColor == 'white') {
             if (id == "") {
                 id = table.rows(i).id;
             } else {
@@ -140,8 +142,68 @@ function delsselectuser() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:9096/OA/Showcontent/del_user?id=" + id + "&" + Math.random().toString(),
+        url: baseurl + "Showcontent/del_user?type=1&id=" + id + "&" + Math.random().toString(),
         async: true,
+        error: function () {
+            alert("Connection error");
+        },
+        success: function (data) {
+            $("#content").html(data); //data即为后台返回的数据
+        }
+    })
+}
+
+function bt_delalluser(url) {
+    if (confirm("请确定是否删除全部用户！")) {
+        $.ajax({
+            type: "GET",
+            url: baseurl + "Showcontent/del_user?type=0&" + Math.random().toString(),
+            async: true,
+            error: function () {
+                alert("Connection error");
+            },
+            success: function (data) {
+                $("#content").html(data); //data即为后台返回的数据
+            }
+        })
+    }
+}
+
+function bt_adduser() {
+    document.getElementById('user_right').style.display = "block";
+}
+
+function addusercancel() {
+    document.getElementById('user_right').style.display = "none"
+}
+
+function showmodifyuser(id) {
+    $.ajax({
+        type: "GET",
+        url: baseurl + "Showcontent/get_user?id=" + id + "&" + Math.random().toString(),
+        async: true,
+        error: function () {
+            alert("Connection error");
+        },
+        success: function (data) {
+            $("#content").html(data); //data即为后台返回的数据
+        }
+    })
+}
+
+function modify_user(id) {
+    if (!check1()) {
+        return;
+    }
+
+    var post = $('#form_add').serialize();
+    post += "&id=" + id;
+
+    $.ajax({
+        type: "POST",
+        url: baseurl + "Showcontent/modify_user?" + Math.random().toString(),
+        async: true,
+        data: post,// 你的formid
         error: function () {
             alert("Connection error");
         },

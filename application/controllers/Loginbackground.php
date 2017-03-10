@@ -40,7 +40,9 @@ class  Loginbackground extends CI_Controller
         if (count($row) > 0) {
             if ($row[0]['adminname'] == $user) {
                 if ($row[0]['password'] == $pwd) {
+                    $this->load->view('header');
                     $this->load->view('background/main');
+                    $this->load->view('footer');
                 }
             } else {
                 $re['response'] = "密码不正确！";

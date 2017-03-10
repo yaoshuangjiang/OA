@@ -12,58 +12,69 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>OA后台操作系统</title>
+    <link rel="stylesheet" href="<?php echo base_url() ?>css/all.css" type="text/css" />
     <style type="text/css">
-
-        body {
-            width: 100%;
-            height: 100%;
-            font-family: 微软雅黑;
-            font-size: 12px;;
-            margin: 0;
-            background-color: #FFFFFF;
-        }
 
         #title {
             height: 50px;
             background-color: #858DA8;
             text-align: center;
-            margin: 0px;
         }
 
         #title h1 {
             color: #2D2D3F;
             text-shadow: 0 0 10px;
-            letter-spacing: 1px;
-            margin: 0 auto;
+            padding: 10px;
+        }
+
+        #page {
+            width: 2000px;
+            height: 1500px;
+            float: left;
         }
 
         #list {
+            border-radius: 5px;
             width: 200px;
             height: 100%;
             background-color: #858DA8;
             float: left;
             margin: 10px;
+            text-align: left;
         }
 
         #list h3 {
+            height: 25px;
+            width: 190px;
+            border-radius: 5px;
             background-color: #2D2D3F;
             color: #229955;
-            margin: 0 auto;
+            margin-top: 0px;
             margin-bottom: 5px;
             text-align: center;
+            padding: 5px;
         }
 
         #list li {
-            text-align: left;
-            margin-bottom: 5px;
-            margin-left: 15px;
+            list-style-type: none;
+            text-align: center;
+            background-color: #2D2D3F;
+            width: 200px;
+            height: 20px;
+            border: 1px #2e8ece;
+            border-radius: 5px;
             font-size: 14px;
+            margin-left: -40px;
+            cursor: pointer;
+            color: #ffffff;
         }
 
         #content {
-            width: 1000px;
-            height: 1000px;
+            width: 1500px;
+            height: 100%;
             float: left;
+            background-color: #f2f2f2;
+            border-radius: 5px;
             margin: 10px;
         }
 
@@ -71,9 +82,34 @@
     <script type="text/javascript" src="<?php echo base_url() ?>js/jquery-1.8.0.js"></script>
     <script type="text/javascript" src="<?php echo base_url() ?>js/username.js"></script>
     <script type="text/javascript">
-        function showContent(type) {
-            showRightContent("<?php echo base_url()  ?>Showcontent/sendcontent?type=" + type + "&" +
-                Math.random().toString());
+
+        function showContent(obj, type) {
+            document.getElementById("li_user").style.backgroundColor = "#2D2D3F";
+            document.getElementById("li_user").style.color = "#FFFFFF";
+            document.getElementById("li_group").style.backgroundColor = "#2D2D3F";
+            document.getElementById("li_group").style.color = "#FFFFFF";
+            document.getElementById("li_asset").style.backgroundColor = "#2D2D3F";
+            document.getElementById("li_asset").style.color = "#FFFFFF";
+            document.getElementById("li_notice").style.backgroundColor = "#2D2D3F";
+            document.getElementById("li_notice").style.color = "#FFFFFF";
+            document.getElementById("li_document").style.backgroundColor = "#2D2D3F";
+            document.getElementById("li_document").style.color = "#FFFFFF";
+            obj.style.backgroundColor = "#FFFFFF";
+            obj.style.color = "#000000";
+
+            showRightContent(type);
+        }
+
+        function limouseover(obj) {
+            if (obj.style.backgroundColor == "rgb(255, 255, 255)")
+                return;
+            obj.style.backgroundColor = "#000000";
+        }
+
+        function limouseout(obj) {
+            if (obj.style.backgroundColor == "rgb(255, 255, 255)")
+                return;
+            obj.style.backgroundColor = "#2D2D3F";
         }
     </script>
 </head>
@@ -84,19 +120,34 @@
 </div>
 <div id="span">
 </div>
-<div id="list">
-    <h3>菜单栏</h3>
-    <ul>
-        <li><a href="###" onclick="showContent(0)">用户管理</a></li>
-        <li><a href="###" onclick="showContent(1)">用户组管理</a></li>
-        <li><a href="###" onclick="showContent(2)">资产管理</a></li>
-        <li><a href="###" onclick="showContent(3)">信息发布</a></li>
-        <li><a href="###" onclick="showContent(4)">文档管理</a></li>
-    </ul>
-    <button id="bt_test" onclick='insert_user("<?php echo base_url()?>Showcontent/insert_user?" + Math.random().toString())'>test</button>
-</div>
-
-<div id="content">
+<div id="page">
+    <div id="list">
+        <h3>菜单栏</h3>
+        <ul style="">
+            <li id="li_user" onmouseover="limouseover(this)" on onmouseout="limouseout(this)"
+                onclick="showContent(this,0)">
+                <p>
+                    用户管理</p>
+            </li>
+            <li id="li_group" onmouseover="limouseover(this)" onmouseout="limouseout(this)"
+                onclick="showContent(this,1)">
+                <p>
+                    用户组管理</p></li>
+            <li id="li_asset" onmouseover="limouseover(this)" onmouseout="limouseout(this)"
+                onclick="showContent(this,2)">
+                <p>
+                    资产管理</p></li>
+            <li id="li_notice" onmouseover="limouseover(this)" onmouseout="limouseout(this)"
+                onclick="showContent(this,3)">
+                <p>
+                    信息发布</p></li>
+            <li id="li_document" onmouseover="limouseover(this)" onmouseout="limouseout(this)"
+                onclick="showContent(this,4)"><p>
+                    文档管理</p></li>
+        </ul>
+    </div>
+    <div id="content">
+    </div>
 </div>
 </body>
 </html>

@@ -21,6 +21,8 @@ class  Loginbackground extends CI_Controller
      */
     public function login()
     {
+         log_message('debug', 'debug message.');
+          log_message('info', 'info message.');
         //$this->load->view('test');
         $this->load->view('background/loginbackground');
     }
